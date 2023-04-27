@@ -1,8 +1,6 @@
 name: Docker Image Build & ECR Push
 
 on:
-  push:
-    branches: [ "taekyung" ]    
   release:
     types: [published]
     
@@ -41,4 +39,3 @@ jobs:
           
           docker build helloworld-was -t $IMAGE_TAG
           docker push $IMAGE_TAG
-          
