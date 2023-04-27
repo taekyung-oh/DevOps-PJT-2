@@ -37,8 +37,8 @@ jobs:
           
       - name: Build and Push the Docker image
         run: |
-          pwd
-          ls
-          docker build helloworld-was -t ${{ steps.meta.outputs.tags }}
-          docker push ${{ steps.meta.outputs.tags }}
+          export IMAGE_TAG=$(echo ${{ steps.meta.outputs.tags }} | cut -d ' ' -f1)
+          
+          docker build helloworld-was -t $IMAGE_TAG
+          docker push $IMAGE_TAG
           
