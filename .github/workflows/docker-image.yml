@@ -3,7 +3,11 @@ name: Docker Image Build & ECR Push
 on:
   release:
     types: [published]
-
+    
+permissions:
+  id-token: write
+  contents: read
+  
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -16,6 +20,7 @@ jobs:
         uses: aws-actions/configure-aws-credentials@v2
         with:
           role-to-assume: arn:aws:iam::057440442371:role/my-github-actions-role
+          role-session-name: BigHeadSession
           aws-region: ap-northeast-2
 
       - name: Login to Amazon ECR Private
