@@ -1,6 +1,8 @@
 name: Docker Image Build & ECR Push
 
 on:
+  push:
+    branches: [ "taekyung" ]    
   release:
     types: [published]
     
@@ -35,7 +37,8 @@ jobs:
           
       - name: Build and Push the Docker image
         run: |
-          echo ${{ steps.meta.outputs.tags }}
+          pwd
+          ls
           docker build helloworld-was -t ${{ steps.meta.outputs.tags }}
-          echo ${{ steps.meta.outputs.tags }}
           docker push ${{ steps.meta.outputs.tags }}
+          
