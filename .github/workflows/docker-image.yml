@@ -35,5 +35,7 @@ jobs:
           
       - name: Build and Push the Docker image
         run: |
-          docker build helloworld-was -t ${{ steps.meta.outputs.tags[0] }}
-          docker push ${{ steps.meta.outputs.tags[0] }}
+          ehco ${{ steps.meta.outputs.tags }}
+          docker build helloworld-was -t ${{ steps.meta.outputs.tags }}
+          ehco ${{ steps.meta.outputs.tags }}
+          docker push ${{ steps.meta.outputs.tags }}
