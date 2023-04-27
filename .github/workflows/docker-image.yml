@@ -35,5 +35,7 @@ jobs:
           
       - name: Build and Push the Docker image
         run: |
-          docker build . --file Dockerfile --tag ${{ steps.meta.outputs.tags }}
-          docker push ${{ steps.meta.outputs.tags }}
+          echo ${{github.event}}
+          echo ${{github}}          
+          # docker build . --file Dockerfile --tag ${{ steps.meta.outputs.tags }}
+          # docker push ${{ steps.meta.outputs.tags }}
