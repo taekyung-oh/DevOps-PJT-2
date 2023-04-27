@@ -1,0 +1,37 @@
+# https://github.com/aws-actions/amazon-ecr-login#login-to-amazon-ecr-public-then-build-and-push-a-docker-image
+name: build & push docker image to AWS ECR
+
+on:
+  push:
+    branches: [ "rora" ]
+  pull_request:
+    branches: [ "rora" ]
+  
+jobs:
+  build_and_push_docker_image_to_AWS_ECR: # job_id : 고유 식별자
+    runs-on: ubuntu-latest
+    steps:
+      - name: "1. github runner에 레파지토리 체크아웃"
+        uses: actions/checkout@v3
+        
+      # Before each of the following examples, make sure to include the following:
+      - name: "2. AWS credential 설정"
+        uses: aws-actions/configure-aws-credentials@v2 # More information on this action can be found below in the 'AWS Credentials' section
+        with:
+          role-to-assume: arn:aws:iam::644329934495:role/my-github-actions-role
+          aws-region: ap-northeast-2
+      
+      # Login to Amazon ECR Private, then build and push a Docker image: (cf. public)
+      - name: "3. AMAZON ECR 로그인"
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+
+      - name: "4. AMAZON ECR에 도커 이미지를 빌드, 태그, 푸시"
+        env:
+          REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          REPOSITORY: my-ecr-repo
+          IMAGE_TAG: ${{ github.sha }}
+        run: |
+          docker build -t $REGISTRY/$REPOSITORY:$IMAGE_TAG .
+          docker push $REGISTRY/$REPOSITORY:$IMAGE_TAG
+
