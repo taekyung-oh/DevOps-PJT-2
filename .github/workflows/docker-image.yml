@@ -31,9 +31,9 @@ jobs:
         id: meta
         uses: docker/metadata-action@9ec57ed1fcdbf14dcef7dfbe97b2010124a938b7  
         with:
-          images: "057440442371.dkr.ecr.ap-northeast-2.amazonaws.com/bighead-was"
+          images: 057440442371.dkr.ecr.ap-northeast-2.amazonaws.com/bighead-was
           
       - name: Build and Push the Docker image
         run: |
-          docker build . --file Dockerfile --tag ${{ steps.meta.outputs.tags }}
+          docker build ./helloworld-was --file Dockerfile --tag ${{ steps.meta.outputs.tags }}
           docker push ${{ steps.meta.outputs.tags }}
