@@ -31,8 +31,6 @@ module.exports = async function (fastify, opts) {
     // the default value is false
     forceClose: true,
     
-    // url: 'mongodb://root:2656400aA!@localhost:27017/?authMechanism=DEFAULT'
-    // url: `mongodb://${process.env.MONGO_USERNAME}:${process.env.MONGO_PASSWORD}@${process.env.MONGO_HOST}:${process.env.MONGO_PORT}/?authMechanism=DEFAULT`
-    url: `mongodb://${process.env.MONGO_USERNAME}:${process.env.MONGO_PASSWORD}@mongo:${process.env.MONGO_PORT}/?authMechanism=DEFAULT`
+    url: `mongodb://${process.env.MONGO_USERNAME}:${process.env.MONGO_PASSWORD}@${process.env.MONGO_HOST}:${process.env.MONGO_PORT}/?authMechanism=DEFAULT`
   })
 }

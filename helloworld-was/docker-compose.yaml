@@ -3,7 +3,7 @@ version: '3.1'
 
 services:
   bighead-was:
-    image: 057440442371.dkr.ecr.ap-northeast-2.amazonaws.com/bighead-was:1.2
+    image: 057440442371.dkr.ecr.ap-northeast-2.amazonaws.com/bighead-was:1.3
     restart: "always"
     ports:
       - target: 3000
