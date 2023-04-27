@@ -1,0 +1,25 @@
+# Use root/example as user/password credentials
+version: '3.1'
+
+services:
+  bighead-was:
+    image: 057440442371.dkr.ecr.ap-northeast-2.amazonaws.com/bighead-was:1.2
+    restart: "always"
+    ports:
+      - target: 3000
+        published: 3000
+        x-aws-protocol: http
+    container_name: bighead-was
+    depends_on:
+      - mongo
+
+  mongo:
+    image: mongo
+    restart: always
+    ports:
+      - target: ${MONGO_PORT}
+        published: ${MONGO_PORT}
+    container_name: mongo
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASSWORD}
