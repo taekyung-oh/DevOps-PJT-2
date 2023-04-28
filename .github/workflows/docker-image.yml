@@ -1,0 +1,41 @@
+name: Docker Image Build & ECR Push
+
+on:
+  release:
+    types: [published]
+    
+permissions:
+  id-token: write
+  contents: read
+  
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v3
+      
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          role-to-assume: arn:aws:iam::${{ secrets.OTK_AWS_ACCOUNT_ID }}:role/my-github-actions-role
+          role-session-name: BigHeadSession
+          aws-region: ap-northeast-2
+
+      - name: Login to Amazon ECR Private
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+      
+      - name: Extract metadata (tags, labels) for Docker
+        id: meta
+        uses: docker/metadata-action@9ec57ed1fcdbf14dcef7dfbe97b2010124a938b7  
+        with:
+          images: ${{ secrets.OTK_AWS_ACCOUNT_ID }}.dkr.ecr.ap-northeast-2.amazonaws.com/bighead-was
+          
+      - name: Build and Push the Docker image
+        run: |
+          export IMAGE_TAG=$(echo ${{ steps.meta.outputs.tags }} | cut -d ' ' -f1)
+          
+          docker build helloworld-was -t $IMAGE_TAG
+          docker push $IMAGE_TAG
