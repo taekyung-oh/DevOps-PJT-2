@@ -1,0 +1,104 @@
+{
+    "taskDefinitionArn": "arn:aws:ecs:ap-northeast-2:057440442371:task-definition/bighead-was-task-definition:2",
+    "containerDefinitions": [
+        {
+            "name": "bighead-was-container",
+            "image": "057440442371.dkr.ecr.ap-northeast-2.amazonaws.com/bighead-was:1.5.3",
+            "cpu": 0,
+            "portMappings": [
+                {
+                    "name": "bighead-was-container-3000-tcp",
+                    "containerPort": 3000,
+                    "hostPort": 3000,
+                    "protocol": "tcp",
+                    "appProtocol": "http"
+                }
+            ],
+            "essential": true,
+            "environment": [],
+            "environmentFiles": [],
+            "mountPoints": [],
+            "volumesFrom": [],
+            "secrets": [
+                {
+                    "name": "MONGO_HOST",
+                    "valueFrom": "arn:aws:secretsmanager:ap-northeast-2:057440442371:secret:bighead-mongo-connection-IXY2CV:MONGO_HOST::"
+                },
+                {
+                    "name": "MONGO_PORT",
+                    "valueFrom": "arn:aws:secretsmanager:ap-northeast-2:057440442371:secret:bighead-mongo-connection-IXY2CV:MONGO_PORT::"
+                },
+                {
+                    "name": "MONGO_USERNAME",
+                    "valueFrom": "arn:aws:secretsmanager:ap-northeast-2:057440442371:secret:bighead-mongo-connection-IXY2CV:MONGO_USERNAME::"
+                },
+                {
+                    "name": "MONGO_PASSWORD",
+                    "valueFrom": "arn:aws:secretsmanager:ap-northeast-2:057440442371:secret:bighead-mongo-connection-IXY2CV:MONGO_PASSWORD::"
+                }
+            ],
+            "ulimits": [],
+            "logConfiguration": {
+                "logDriver": "awslogs",
+                "options": {
+                    "awslogs-create-group": "true",
+                    "awslogs-group": "/ecs/bighead-was-task-definition",
+                    "awslogs-region": "ap-northeast-2",
+                    "awslogs-stream-prefix": "ecs"
+                }
+            }
+        }
+    ],
+    "family": "bighead-was-task-definition",
+    "executionRoleArn": "arn:aws:iam::057440442371:role/ecsTaskExecutionRole",
+    "networkMode": "awsvpc",
+    "revision": 2,
+    "volumes": [],
+    "status": "ACTIVE",
+    "requiresAttributes": [
+        {
+            "name": "com.amazonaws.ecs.capability.logging-driver.awslogs"
+        },
+        {
+            "name": "ecs.capability.execution-role-awslogs"
+        },
+        {
+            "name": "com.amazonaws.ecs.capability.ecr-auth"
+        },
+        {
+            "name": "com.amazonaws.ecs.capability.docker-remote-api.1.19"
+        },
+        {
+            "name": "ecs.capability.secrets.asm.environment-variables"
+        },
+        {
+            "name": "ecs.capability.execution-role-ecr-pull"
+        },
+        {
+            "name": "com.amazonaws.ecs.capability.docker-remote-api.1.18"
+        },
+        {
+            "name": "ecs.capability.task-eni"
+        },
+        {
+            "name": "com.amazonaws.ecs.capability.docker-remote-api.1.29"
+        }
+    ],
+    "placementConstraints": [],
+    "compatibilities": [
+        "EC2",
+        "FARGATE"
+    ],
+    "requiresCompatibilities": [
+        "FARGATE"
+    ],
+    "cpu": "1024",
+    "memory": "3072",
+    "runtimePlatform": {
+        "cpuArchitecture": "X86_64",
+        "operatingSystemFamily": "LINUX"
+    },
+    "registeredAt": "2023-04-28T05:36:22.189Z",
+    "registeredBy": "arn:aws:iam::057440442371:root",
+    "tags": []
+}
